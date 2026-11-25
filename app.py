@@ -32,6 +32,35 @@ def clamp(v, lo, hi):
     return max(lo, min(v, hi))
 
 
+def disable_power_throttling():
+    """Opt this process out of Windows' background power throttling (EcoQoS).
+
+    Without this, Windows slows our render-loop timer to a crawl (~8fps instead
+    of 30) as soon as the window loses foreground focus, since it treats us like
+    any other backgrounded app. A screen-sharing tool needs to keep rendering at
+    full rate while unfocused, so we explicitly disable that throttling.
+    """
+    if sys.platform != "win32":
+        return
+    try:
+        kernel32 = ctypes.windll.kernel32
+
+        class PROCESS_POWER_THROTTLING_STATE(ctypes.Structure):
+            _fields_ = [("Version", ctypes.c_ulong),
+                        ("ControlMask", ctypes.c_ulong),
+                        ("StateMask", ctypes.c_ulong)]
+
+        PROCESS_POWER_THROTTLING_EXECUTION_SPEED = 0x1
+        PROCESS_POWER_THROTTLING = 4  # PROCESS_INFORMATION_CLASS.ProcessPowerThrottling
+        state = PROCESS_POWER_THROTTLING_STATE(
+            Version=1, ControlMask=PROCESS_POWER_THROTTLING_EXECUTION_SPEED, StateMask=0)
+        kernel32.SetProcessInformation(
+            kernel32.GetCurrentProcess(), PROCESS_POWER_THROTTLING,
+            ctypes.byref(state), ctypes.sizeof(state))
+    except Exception:
+        pass
+
+
 def app_dir():
     """Directory the running exe lives in (or this script's dir, in dev)."""
     if getattr(sys, "frozen", False):
@@ -166,6 +195,7 @@ class Source:
 
 class App:
     def __init__(self):
+        disable_power_throttling()
         self.root = tk.Tk()
         self.root.title("3rdScreen")
         self.root.configure(bg=BG)
