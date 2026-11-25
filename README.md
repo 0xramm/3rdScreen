@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="assets/icon.ico" width="96" height="96" alt="ScreenCanvas icon">
+  <img src="assets/icon.ico" width="96" height="96" alt="3rdScreen icon">
 </p>
 
-<h1 align="center">ScreenCanvas</h1>
+<h1 align="center">3rdScreen</h1>
 
 <p align="center">
   Share two (or more) monitors as a single window in Discord, Zoom, or Teams.
@@ -14,7 +14,7 @@
 
 ## Why
 
-Most meeting apps only let you share one screen at a time. ScreenCanvas composites
+Most meeting apps only let you share one screen at a time. 3rdScreen composites
 any number of your monitors into one borderless window, laid out however you like,
 so you can share that single window and have everyone see all your screens at once.
 
@@ -42,7 +42,7 @@ python app.py
 build.bat
 ```
 
-This runs PyInstaller and produces `dist\ScreenCanvas.exe` (icon embedded, single file).
+This runs PyInstaller and produces `dist\3rdScreen.exe` (icon embedded, single file).
 
 GitHub Actions also builds it automatically on every push to `main` — grab the exe
 from the latest run's **Artifacts** under the Actions tab.
@@ -54,7 +54,7 @@ from the latest run's **Artifacts** under the Actions tab.
    width/height in the Properties panel.
 3. Set the output resolution under Output Size if you want something other than
    1920×1080.
-4. Click **Start shared view** — a borderless window titled "ScreenCanvas Output"
+4. Click **Start shared view** — a borderless window titled "3rdScreen Output"
    opens. Share *that* window in your meeting app.
 5. Press `Esc` (focus the output window) or click **Stop shared view** to end it.
 

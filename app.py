@@ -1,4 +1,4 @@
-"""ScreenCanvas — compose multiple monitors into one borderless window
+"""3rdScreen — compose multiple monitors into one borderless window
 so it can be shared as a single screen in a meeting app."""
 import ctypes
 import json
@@ -167,7 +167,7 @@ class Source:
 class App:
     def __init__(self):
         self.root = tk.Tk()
-        self.root.title("ScreenCanvas")
+        self.root.title("3rdScreen")
         self.root.configure(bg=BG)
         self.root.geometry("1000x660")
         self.root.minsize(880, 580)
@@ -510,7 +510,7 @@ class App:
 
     def start_output(self):
         self.output_win = tk.Toplevel(self.root)
-        self.output_win.title("ScreenCanvas Output")
+        self.output_win.title("3rdScreen Output")
         self.output_win.geometry(f"{self.output_w}x{self.output_h}+60+60")
         self.output_win.configure(bg="black")
         self._set_icon(self.output_win)
